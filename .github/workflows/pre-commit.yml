@@ -1,22 +1,18 @@
 ---
-name: Pre-commit auto-update
+name: Pre-commit
 
 
 on:                          # yamllint disable-line rule:truthy
   schedule:
-    - cron: '08 2 * * 6'
+    - cron: '0 2 * * 0'
   workflow_dispatch:
-  push:
-    branches:
-      - '**'
-    tags:
-      - '!**'
 
 jobs:
 
   auto-update:
     runs-on:
       - self-hosted
+      - pre-commit
 
     timeout-minutes: 10
 
@@ -30,14 +26,34 @@ jobs:
       - run: pre-commit autoupdate
         shell: bash
 
-      - uses: peter-evans/create-pull-request@v5
+      - name: Create Pull Request
+        id: cpr
+        uses: peter-evans/create-pull-request@v7
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
+          token: ${{ secrets.PAT }}
+          committer: "Karl Kraft <karl@karlkraft.com>"
+          author: "Karl Kraft <karl@karlkraft.com>"
           branch: update/pre-commit-hooks
+          delete-branch: true
           title: Update pre-commit hooks
           commit-message: "chore: update pre-commit hooks"
-          committer: Karl Kraft <karl@karlkraft.com>
-          author: Karl Kraft <karl@karlkraft.com>
           body: Update versions of pre-commit hooks to latest version.
           add-paths: |
             .pre-commit-config.yaml
+
+      - name: Enable Pull Request Automerge
+        if: steps.cpr.outputs.pull-request-operation == 'created'
+        uses: peter-evans/enable-pull-request-automerge@v3
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          pull-request-number: ${{ steps.cpr.outputs.pull-request-number }}
+          merge-method: squash
+
+      - name: Auto approve
+        if: steps.cpr.outputs.pull-request-operation == 'created'
+        run: gh pr review --approve "${{ steps.cpr.outputs.pull-request-number }}"
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Mark Completed
+        run: touch  ${{ runner.temp }}/Green

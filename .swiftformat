@@ -1,10 +1,9 @@
-# Enable Swift 5.5 features
---swiftversion 5.5
+--swiftversion 5.10
 #
 #  Indentation
 #
 --indent 2
---indentcase false
+--indentcase true
 --indentstrings false
 --tabwidth unspecified
 --smarttabs enabled
@@ -57,7 +56,7 @@
 --extensionlength 0
 
 --self remove
---selfrequired 
+--selfrequired print,debug,info,notice,warning,trace,error,critical
 
 --semicolons never
 
@@ -76,7 +75,8 @@
 --stripunusedargs closure-only
 
 
---maxwidth none
+--maxwidth 132
+--enable wrapSingleLineComments
 --nowrapoperators 
 --assetliterals visual-width
 --wrapternary default
@@ -106,7 +106,7 @@
 # 
 #
 #
---disable andOperator,blockComments,docComments,preferDouble,sortDeclarations
+--disable andOperator,blockComments,docComments,sortDeclarations,blankLinesAroundMark,blankLinesAtStartOfScope
 
---enable anyObjectProtocol,assertionFailures,blankLineAfterImports,blankLinesAroundMark,blankLinesAtEndOfScope,blankLinesAtStartOfScope,blankLinesBetweenImports,blankLinesBetweenScopes,consecutiveBlankLines,consecutiveSpaces,duplicateImports,initCoderUnavailable,isEmpty,leadingDelimiters,linebreakAtEndOfFile,preferKeyPath,redundantBackticks,redundantBreak,redundantClosure,redundantExtensionACL,redundantFileprivate,redundantGet,redundantInit,redundantLet,redundantLetError,redundantNilInit,redundantObjc,redundantOptionalBinding,redundantParens,redundantPattern,redundantRawValues,redundantReturn,redundantSelf,redundantType,redundantVoidReturnType,sortedSwitchCases,spaceAroundBraces,spaceAroundBrackets,spaceAroundComments,spaceAroundGenerics,spaceAroundOperators,spaceAroundParens,spaceInsideBraces,spaceInsideBrackets,spaceInsideComments,spaceInsideGenerics,spaceInsideParens,strongOutlets,strongifiedSelf,todos,trailingClosures,unusedArguments
+--enable anyObjectProtocol,assertionFailures,blankLineAfterImports,blankLinesAtEndOfScope,blankLinesBetweenImports,blankLinesBetweenScopes,consecutiveBlankLines,consecutiveSpaces,duplicateImports,initCoderUnavailable,isEmpty,leadingDelimiters,linebreakAtEndOfFile,preferKeyPath,redundantBackticks,redundantBreak,redundantClosure,redundantExtensionACL,redundantFileprivate,redundantGet,redundantInit,redundantLet,redundantLetError,redundantNilInit,redundantObjc,redundantOptionalBinding,redundantParens,redundantPattern,redundantRawValues,redundantReturn,redundantSelf,redundantType,redundantVoidReturnType,sortSwitchCases,spaceAroundBraces,spaceAroundBrackets,spaceAroundComments,spaceAroundGenerics,spaceAroundOperators,spaceAroundParens,spaceInsideBraces,spaceInsideBrackets,spaceInsideComments,spaceInsideGenerics,spaceInsideParens,strongOutlets,strongifiedSelf,todos,trailingClosures,unusedArguments
 
